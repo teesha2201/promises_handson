@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>promise_handson</title>
+    <style>
+        body{
+        background-color: skyblue;
+        }
+    </style>
+</head>
+<body>
+    <h1>Promise Question</h1>
+    <h3>Q.1: Write one example explaining how you can write a callback function ? </h3>
+    <h3>Ans: when we are passing function inside another function as args and call that function in which we are taking as parameter.
+        <pre>
+    function demo(callback)
+    {
+    
+    let a=20 ,b=10;
+    console.log(a)
+    callback(a,b);
+    
+    }
+    function  sum(var1,var2)
+    {    
+        console.log(var1+var2)
+    }
+
+    demo(sum);
+        </pre>
+    </h3>
+    <h3>Q.2: Write a callback function to print numbers from 1 to 7, in which 1 should be printed after 1 sec, 2 should be printed after 2 sec, 3 should be printed after 3 sec, and so on. 
+        <pre>
+        Explain callback hell.
+        Numbers
+        1
+        2
+        3
+        4
+        5
+        6
+        7
+       </pre>
+    </h3>
+    <h3>Ans:
+        <pre>
+            function printDelay(num,delay,callback)
+            {
+                setTimeout(function()){
+                    console.log(num)
+                    if(num<7){
+                    printDelay(num + 1,delay+1000,callback);
+                }
+                else
+                {
+                    callback();
+                }
+            
+            },delay);
+            }
+            printDelay(1,1000,function()
+            {
+                console.log("number successfully");
+            });
+        
+        </pre>
+      
+    </h3>
+    <h3>Q.3: Write the promise function to print numbers from 1 to 7, in which 1 should be printed after 1 sec, 2 should be printed after 2 sec, 3 should be printed after 3 sec, and so on. 
+        <pre>
+        Numbers
+        1
+        2
+        3
+        4
+        5
+        6
+        7
+        </pre> 
+    </h3>
+    <h3>Ans:
+        <pre>
+    function demo(num)
+    {
+        return new Promise((reslove,reject)=>{
+        setTimeout(()=>{
+            console.log(num);
+            reslove();
+            },1000)
+        })
+    }
+    let pro = Promise.resolve();
+
+    for(let i=1;i < =7;i++)
+    {
+        pro= pro.then(()=>demo(i));
+    }
+        </pre>
+    </h3>
+    <h3>Q.4: Create a promise function accepting an argument, if yes is passed to the function then it should go to 
+        resolved state and print Promise Resolved, and if nothing is passed 
+        then it should go to reject the state and catch the error and print Promise Rejected ?</h3>
+    <h3>Ans:
+        <pre>
+            let args="yes"        
+            var prom =  new Promise (function(res,rej){
+            if (args){
+                res("Promise Resolved")
+            }
+            else{
+                rej("Promise Rejected")
+            }
+        })
+        prom.then(function(result){
+        console.log(result) 
+        })
+        .catch((error)=>{
+        console.log(error)
+        })
+        </pre>
+
+    </h3>
+    <h3>Q.5: Create examples to explain callback function ? </h3>
+    <h3>Ans: callback function ::  when we are passing function inside another function as args and 
+        call that function in which we are taking as parameter.
+        <pre>
+            function demo(sample)
+            {
+                console.log("hello");
+                sample_fun();
+            }
+            function sample_fun()
+            {
+                console.log("Welcome");
+            }
+            demo(sample_fun);
+        </pre>
+
+    </h3>
+    <h3>Q.6: Create examples to explain callback hell function ? </h3>
+    <h3>Ans: It is complicated when there are multiple function call inside another function .It is known  as 
+        pyramid problem or triangle problem or chrismats tree problem. ex.:-
+        <pre>
+            function fun1(call){
+                console.log('1');
+                call();
+            }
+            function fun2(call)
+            {
+                console.log('2')
+                call();
+            }
+            function fun3(call)
+            {
+                console.log('3')
+                call();
+            }
+            function fun4()
+            {
+                console.log('4')
+               
+            }
+            //call back hell
+            fun1(()=>{
+                fun2(()=>{
+                    fun3(()=>{
+                        fun4()
+                    })
+                })
+            })
+            
+        </pre>
+    </h3>
+    <h3>Q.7: Create examples to explain promises function ? </h3>
+    <h3>Ans: Promise : It is an object that hold until completion or failure of an asychrnous 
+        operation and its resulting value. 
+        <pre>
+            var demo = new Promise((res,rej) => {
+                let a=20,b=10;
+                if (a==b)
+                {
+                    res("resolved")
+                }
+                else{
+                    rej("rejected")
+                }
+            })
+            demo.then((result)=>
+            {
+                console.log(result)
+            })
+            .catch((error)=>
+            {
+                console.log(error)
+            })
+            
+        </pre>
+    </h3>
+    <h3>Q.8: Create examples to explain async await function ? </h3>
+    <p>Ans: The async/await feature in javascript provides a more elegant and readable way to handle anynchronous operations without failing
+        into callback hell.
+        <pre>
+            let pro = new Promise ((res,rej)=>{
+                setTimeout(function(){
+                    resolve("promise resolved ")
+                },4000);
+            });
+            async function xyz(){
+                let result = await promise;
+                console.log(result);
+                console.log("welcome")
+            }
+            xyz();
+        </pre>
+        output: promise resolved
+    </p>
+    <h3>Q.9: Create examples to explain promise.all function ? </h3>
+    <h3>Ans: promise.all () satic method takes an iterable of promises as input and returns a single Promise.
+        <pre>
+            const getuserData =() =>{
+                return new Promise((resolve,reject)=>{
+                    setTimeout(()=>{
+                        resolve(1)
+                    },1000)
+                })
+            }
+            const getData = ()=>{
+                return new Promise((resolve,reject)=>{
+                    setTimeout(()=>{
+                        resolve(2)
+                    },2000)
+                })
+            }
+            const getnewData =() =>{
+                return new Promise((resolve,reject)=>{
+                    setTimeout(()=>{
+                        resolve(3)
+                    },500)
+                })
+            }
+            Promise.all([getuserData(),getData(),getnewData()]).then(([para1,para2,para3])=>{
+                console.log(`${para1} ${para2} ${para3}`)
+            })
+            .catch(error=>{
+                console.log(error)
+            })
+        </h3>
+    </h3>
+    <script src="./script.js"></script>
+</body>
+</html>
