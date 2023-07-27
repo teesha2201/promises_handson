@@ -22,7 +22,7 @@ function demo(num)
         setTimeout(()=>{
             console.log(num);
             reslove();
-        },1000)
+        },num*1000)
     })
 }
 let pro = Promise.resolve();
